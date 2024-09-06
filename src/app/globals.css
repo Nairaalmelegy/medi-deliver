@@ -7,21 +7,12 @@
   --foreground: #171717;
 }
 
+section.hero {
+  display: grid;
+  grid-template-columns: 0.4fr 0.6fr;
+}
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
     --foreground: #ededed;
-  }
-}
-
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
-}
-
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
   }
 }
