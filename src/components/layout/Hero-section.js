@@ -8,7 +8,7 @@ import Right from "../icons/rightarrow";
  */
 export default function Hero(){
     return(
-        <section className="hero bg-hero-image bg-cover bg-center">
+        <section className="hero bg-hero-image bg-cover bg-center mb-12">
             <div className="py-20 mt-20">
             <h1 className="text-6xl font-semibold">Your Medicine, Delivered with Care</h1>
             <p className="my-6 text-gray-800 text-m">Fast and reliable medicine delivery to your doorstep. 
@@ -17,11 +17,11 @@ export default function Hero(){
             </p>
             <div className="flex gap-4 text-sm">
                 <button 
-                className="bg-primary items-center uppercase flex gap-2 text-white px-2 py-2 rounded-full">
+                className="bg-primary justify-center items-center uppercase flex gap-2 text-white px-2 py-2 rounded-full">
                     Order now
                     <Right/>
                 </button>
-                <button className="flex gap-2 py-2 text-gray-800 font-semibold">
+                <button className="flex items-center border-0 gap-2 py-2 text-gray-800 font-semibold">
                     Learn more
                     <Right/>
                 </button>
@@ -29,7 +29,9 @@ export default function Hero(){
             </div>
             
             <div className="relative">
-                <Image src="/Hero.png" layout="fill" objectFit="contain" alt="Care"/>
+                <Image src="/Hero.png" fill={true} 
+                    style={{ objectFit: "cover" }} 
+                    alt="Care"/>
             </div>
         </section>
     )

@@ -1,48 +1,40 @@
-"use client";
-
-import Image from "next/image";
-import Link from "next/link";
-import {useState} from "react";
-import {signIn} from "next-auth/react";
-
-
-export default function Login(){
+'use client';
+import {signIn} from  'next-auth/react';
+import Link from 'next/link';
+import { useState } from 'react';
+export default function LoginPage(){
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [loginInProgress,  setLoginInProgress] = useState(false);
-
 
     
     async function handleFormSubmit(ev){
         ev.preventDefault();
         setLoginInProgress(true);
         
-        await signIn('credentials', {email, password});
+        await signIn('credentials', {email, password, callbackUrl: '/'});
+        
         setLoginInProgress(false);
     }
-    return(
+    return (
         <section className="mt-8">
-            <h1 className="text-center text-primary text-4xl mb-4 font-semibold">Login</h1>
-            <form className="block max-w-xs mx-auto"  onSubmit={handleFormSubmit}>
-
-                <input type="email" name="email" placeholder="Enter your email" 
-                    disabled={setLoginInProgress}
-                    value={email} onChange={ev => setEmail(ev.target.value)}/>
-                <input type="password" name="password" placeholder="Enter your password"
-                    disabled={setLoginInProgress}
-                    value={password} onChange={ev => setPassword(ev.target.value)}/>
-                <button type={'submit'} disabled={setLoginInProgress}>
-                    Login</button>
-                <div className="my-4 text-center text-gray-600">
-                    or login with provider
+            <h1 className="text-center text-primary text-4xl font-semibold">
+                LogIn</h1>
+            <form className="block max-w-xs mx-auto" onSubmit={handleFormSubmit}>
+                <input type="email" placeholder="email"
+                    value={email}
+                    name="email"
+                    disabled={loginInProgress}
+                    onChange={ev => setEmail(ev.target.value)}/>
+                <input type="password" placeholder="password"
+                    value={password}
+                    name="password"
+                    disabled={loginInProgress}
+                    onChange={ev => setPassword(ev.target.value)}/>
+                <button type="submit" disabled={loginInProgress}>Login</button>
+                <div className="text-center my-4 text-gray-700 border-t pt-4">
+                    Not a member? {' '}<Link className="underline font-semibold" href ={'/register'}>Register</Link>
                 </div>
-                <button className="text-gray-600 flex gap-4 justify-center ">
-                    <Image  className="mt-0.5" src={'/Logo-google-icon-PNG.png'} alt='google icon' width={20} height={20}/>
-                    Login with google</button>
-                    <div className="text-center my-4 text-gray-600">
-                        Not a member ?{' '}
-                        <Link className={'underline font-semibold'}href={'/login'}>Register here</Link>
-                    </div>
             </form>
         </section>
     );
