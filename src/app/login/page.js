@@ -3,6 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import {useState} from "react";
+import {signIn} from "next-auth/react";
 
 
 export default function Login(){
@@ -16,7 +17,7 @@ export default function Login(){
         ev.preventDefault();
         setLoginProgress(true);
         
-        await login('credentials', {email, password});
+        await signIn('credentials', {email, password});
 
         setLoginProgress(false);
     }
@@ -36,7 +37,7 @@ export default function Login(){
                 <div className="my-4 text-center text-gray-600">
                     or login with provider
                 </div>
-                <button className="text-black flex gap-4 justify-center">
+                <button className="text-gray-600 flex gap-4 justify-center ">
                     <Image  className="mt-0.5" src={'/Logo-google-icon-PNG.png'} alt='google icon' width={20} height={20}/>
                     Login with google</button>
                     <div className="text-center my-4 text-gray-600">

@@ -45,7 +45,7 @@ section.register {
 }
 
 button{
-  display: block;
+  /* display: block; */
   width: 100%;
   margin-top: 2%;
   margin-bottom: 4%;

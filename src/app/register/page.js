@@ -10,8 +10,7 @@ export default function RegisterPage(){
     const [password, setPassword] = useState('');
     const [creatingUser,  setCreatingUser] = useState(false);
     const [userCreated,  setUserCreated] = useState(false);
-    const  [error, setError] = useState(false);
-
+    const [error, setError] = useState('');
 
     async function handleFormSubmit(ev){
         ev.preventDefault();
@@ -23,13 +22,12 @@ export default function RegisterPage(){
             body: JSON.stringify({username, email, password}),
             headers: {'Content-Type': 'application/json'},
         });
-        if (response.ok){
+        if (response.ok) {
             setUserCreated(true);
         }
         else {
             setError(true);
         }
-        
         setCreatingUser(false);
     }
 
@@ -64,8 +62,8 @@ export default function RegisterPage(){
                 <div className="my-4 text-center text-gray-600">
                     or login with provider
                 </div>
-                <button className="text-black flex gap-4 justify-center">
-                    <Image  className="mt-0.5" src={'/Logo-google-icon-PNG.png'} alt='google icon' width={20} height={20}/>
+                <button className="text-gray-600 flex gap-4 justify-center text-center">
+                    <Image  className="my-0.5" src={'/Logo-google-icon-PNG.png'} alt='google icon' width={20} height={20}/>
                     Login with google</button>
                     <div className="text-center my-4 text-gray-600">
                         Already a member ?{' '}
