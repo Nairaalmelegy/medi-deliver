@@ -9,17 +9,16 @@ import {signIn} from "next-auth/react";
 export default function Login(){
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [loginProgress,  setLoginProgress] = useState(false);
+    const [loginInProgress,  setLoginInProgress] = useState(false);
 
 
     
     async function handleFormSubmit(ev){
         ev.preventDefault();
-        setLoginProgress(true);
+        setLoginInProgress(true);
         
         await signIn('credentials', {email, password});
-
-        setLoginProgress(false);
+        setLoginInProgress(false);
     }
     return(
         <section className="mt-8">
@@ -27,12 +26,12 @@ export default function Login(){
             <form className="block max-w-xs mx-auto"  onSubmit={handleFormSubmit}>
 
                 <input type="email" name="email" placeholder="Enter your email" 
-                    disabled={setLoginProgress}
+                    disabled={setLoginInProgress}
                     value={email} onChange={ev => setEmail(ev.target.value)}/>
                 <input type="password" name="password" placeholder="Enter your password"
-                    disabled={setLoginProgress}
+                    disabled={setLoginInProgress}
                     value={password} onChange={ev => setPassword(ev.target.value)}/>
-                <button type={'submit'} disabled={setLoginProgress}>
+                <button type={'submit'} disabled={setLoginInProgress}>
                     Login</button>
                 <div className="my-4 text-center text-gray-600">
                     or login with provider
