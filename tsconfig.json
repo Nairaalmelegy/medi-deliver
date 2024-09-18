@@ -31,7 +31,7 @@
     ".next/types/**/*.ts",
     "**/*.ts",
     "**/*.tsx"
-, "src/app/api/auth/[...nextauth]/route.js"  ],
+, "src/app/api/auth/[...nextauth]/route.js", "src/libs/mongoConnect.js"  ],
   "exclude": [
     "node_modules"
   ]

@@ -23,12 +23,16 @@ export default function Header(){
 
       <nav className="flex items-center gap-4 text-gray-500 font-semibold">
         {status === 'authenticated' && (
-          <button 
-          onClick={() => signOut()} 
-          className="bg-primary text-white rounded-full px-6 py-2">LogOut</button>
+          <>
+            <Link href={'/profile'}>Profile</Link>
+            <button 
+            onClick={() => signOut()} 
+            className="bg-primary text-white rounded-full px-6 py-2">LogOut</button>
 
+          </>
+          
         )}
-        {status !== 'authenticated' && (
+        {status === 'unauthenticated' && (
           <>
             <Link href={'/login'} >Login</Link>
             <Link href={'/register'} className="bg-primary text-white rounded-full px-6 py-2">Register</Link>
