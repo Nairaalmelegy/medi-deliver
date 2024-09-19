@@ -14,7 +14,6 @@ body{
   background-size: contain;
   top: 0%;
 }
-
 section.hero {
   display: grid;
   height: 550px;
@@ -23,7 +22,8 @@ section.hero {
 
 input[type="email"],
 input[type="password"],
-input[type="text"] {
+input[type="text"],
+input[type="tel"] {
   display: block;
   padding: 0.5rem;           
   border: 1px solid #D1D5DB;
@@ -36,12 +36,33 @@ input[type="text"] {
 }
 input[type="email"]:disabled,
 input[type="password"]:disabled,
-input[type="text"]:disabled{
-  background-color: #828384;
+input[type="text"]:disabled,
+input[type="tel"]:disabled{
+  background-color: #c2c4c5;
   cursor:not-allowed;
+  color: #6a6a6a;
 }
 section.register {
   height: 600px;
+}
+div.tabs > *{
+  background-color: #6e7a8d; /* Equivalent to bg-gray-600 */
+  color: #ffffff;            /* Equivalent to text-white */
+  border-radius: 9999px;    /* Rounded-full */
+  padding: 0.5rem 1rem;     /* Equivalent to py-2 px-4 */
+  font-size: 1rem;          /* Optional: adjust as needed */
+  border: none;             /* Remove default border */
+  cursor: pointer;          /* Change cursor to pointer */
+  transition: background-color 0.3s ease; /* Smooth transition for background color */
+}
+
+div.tabs>*:hover {
+  background-color: #2d3748; /* Darker gray for hover effect */
+}
+div.tabs>*.active{
+  background-color: #16418d; 
+  color: #ffffff;
+
 }
 
 button{
