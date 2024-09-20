@@ -6,26 +6,18 @@ import toast from "react-hot-toast";
 export const CartContext = createContext({});
 
 export function cartProductPrice(cartProduct) {
-  let price = cartProduct.basePrice;
-  if (cartProduct.size) {
-    price += cartProduct.size.price;
-  }
-  if (cartProduct.extras?.length > 0) {
-    for (const extra of cartProduct.extras) {
-      price += extra.price;
-    }
-  }
-  return price;
+  // Simplified to only return the base price since no size or extras exist.
+  return cartProduct.price;
 }
 
 export function AppProvider({children}) {
-  const [cartProducts,setCartProducts] = useState([]);
+  const [cartProducts, setCartProducts] = useState([]);
 
   const ls = typeof window !== 'undefined' ? window.localStorage : null;
 
   useEffect(() => {
     if (ls && ls.getItem('cart')) {
-      setCartProducts( JSON.parse( ls.getItem('cart') ) );
+      setCartProducts(JSON.parse(ls.getItem('cart')));
     }
   }, []);
 
@@ -35,9 +27,8 @@ export function AppProvider({children}) {
   }
 
   function removeCartProduct(indexToRemove) {
-    setCartProducts(prevCartProducts => {
-      const newCartProducts = prevCartProducts
-        .filter((v,index) => index !== indexToRemove);
+    setCartProducts((prevCartProducts) => {
+      const newCartProducts = prevCartProducts.filter((_, index) => index !== indexToRemove);
       saveCartProductsToLocalStorage(newCartProducts);
       return newCartProducts;
     });
@@ -50,20 +41,23 @@ export function AppProvider({children}) {
     }
   }
 
-  function addToCart(product, size=null, extras=[]) {
-    setCartProducts(prevProducts => {
-      const cartProduct = {...product, size, extras};
-      const newProducts = [...prevProducts, cartProduct];
+  function addToCart(product) {
+    setCartProducts((prevProducts) => {
+      const newProducts = [...prevProducts, product]; // No size or extras anymore
       saveCartProductsToLocalStorage(newProducts);
       return newProducts;
     });
+    toast.success('Product added to cart');
   }
 
   return (
     <SessionProvider>
       <CartContext.Provider value={{
-        cartProducts, setCartProducts,
-        addToCart, removeCartProduct, clearCart,
+        cartProducts,
+        setCartProducts,
+        addToCart,
+        removeCartProduct,
+        clearCart,
       }}>
         {children}
       </CartContext.Provider>
