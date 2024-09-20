@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { User } from "@/models/User";
-import {UserInfo} from "@/models/UserInfo";
+import { UserInfo } from "@/models/UserInfo";
 
 // Helper function to connect to MongoDB
 async function connectToDatabase() {
@@ -26,7 +26,7 @@ export async function PUT(req) {
     const email = session.user.email;
     
     // Use $set to update only the provided fields
-    await User.updateOne(
+    const updateResult = await User.updateOne(
       { email }, 
       { 
         $set: {
@@ -40,8 +40,18 @@ export async function PUT(req) {
       }
     );
 
-    return new Response(JSON.stringify(true), { status: 200 });
+    // Check if the update was acknowledged and if any documents were modified
+    if (!updateResult.matchedCount) {
+      return new Response(JSON.stringify({ error: "User not found" }), { status: 404 });
+    }
+
+    if (!updateResult.modifiedCount) {
+      return new Response(JSON.stringify({ error: "No changes made" }), { status: 400 });
+    }
+
+    return new Response(JSON.stringify({ success: true }), { status: 200 });
   } catch (error) {
+    console.error('PUT request error:', error);
     return new Response(JSON.stringify({ error: error.message }), { status: 500 });
   }
 }
@@ -61,13 +71,21 @@ export async function GET(req) {
     
     // Find and return the user's data
     const user = await User.findOne({ email });
-    const userInfo = await UserInfo.findOne({email})
+    const userInfo = await UserInfo.findOne({ email });
+
     if (!user) {
       return new Response(JSON.stringify({ error: "User not found" }), { status: 404 });
     }
 
-    return new Response(JSON.stringify(user), { status: 200 });
+    // Merge user and userInfo if needed
+    const combinedUserData = {
+      ...user.toObject(),
+      ...(userInfo ? userInfo.toObject() : {})
+    };
+
+    return new Response(JSON.stringify(combinedUserData), { status: 200 });
   } catch (error) {
+    console.error('GET request error:', error);
     return new Response(JSON.stringify({ error: error.message }), { status: 500 });
   }
 }

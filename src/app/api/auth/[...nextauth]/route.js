@@ -53,8 +53,8 @@ export const authOptions = {
     },
   },
   pages: {
-    signIn: "/auth/signin", // Optional: Customize the sign-in page
-    error: "/auth/error",   // Optional: Customize the error page
+    signIn: "/src/app/profile",
+    error: "/src/app/login",
   },
 };
 

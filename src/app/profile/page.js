@@ -18,6 +18,7 @@ export default function ProfilePage() {
     const [country,  setCountry] = useState('');
     const [isAdmin,  setIsAdmin] = useState(false);
     const [profileFetched,  setProfileFetched] = useState(false);
+    const [error, setError] = useState('');
 
 
     useEffect(() => {
@@ -45,6 +46,7 @@ export default function ProfilePage() {
         ev.preventDefault();
         setSaved(false);
         setIsSaving(true);
+        setError('');
     
         try {
             const response = await fetch('/api/profile', {
@@ -67,6 +69,8 @@ export default function ProfilePage() {
                 const error = await response.text(); // Get the error response as text
                 console.error('Update failed:', error);
                 // Handle error accordingly (e.g., show an error message to the user)
+                setError('Failed to update profile. Please try again later.');
+
                 return;
             }
     
@@ -78,6 +82,7 @@ export default function ProfilePage() {
         } catch (error) {
             console.error('Unexpected error:', error);
             // Handle unexpected errors
+            setError('Unexpected error occurred.')
         } finally {
             setIsSaving(false);
         }
@@ -138,7 +143,11 @@ export default function ProfilePage() {
                             value={country}
                             onChange={ev => setCountry(ev.target.value)}
                             />
-                        <button type="submit">Save</button>
+                        <button type="submit">
+                            {isSaving? 'Saving...':'Save'}
+                        </button>
+                        {saved && <p className="text-green-500">Profile Updated successfully!</p>}
+                        {error && <p className="text-red-500">{error}</p>}
                     </form>
                 </div>
             </div>
