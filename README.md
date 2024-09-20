@@ -8,13 +8,15 @@ Medi-Deliver addresses the need for a reliable and seamless way to manage medica
 - Manage inventory 📦
 - Receive notifications for delivery updates 📲
 
-This project was built as part of a portfolio for a web stack development course.
+This project was built as part of a portfolio for Alx software engineering program (Backend specialization ✨).
 
 ## 🛠️ Technologies Used
 - **Next.js** for server-side rendering and React components
 - **Tailwind CSS** for modern styling and responsive design
 - **JavaScript** for interactive functionality
 - **Node.js** for back-end integration
+- **Mongodb atlas** for database management
+- **Stripe**  for payment processing
 
 ## ✨ Features
 - Real-time order tracking 📡
@@ -47,3 +49,33 @@ Make sure you have Node.js installed on your machine.
     npm run dev
     ```
 5. Open http://localhost:3000 in your browser to view the app.
+
+
+## 🧪 Usage
+Once the app is running, users can:
+- Sign up and log in to their account.
+- Place new orders for medical supplies.
+- Track deliveries in real-time on the dashboard.
+- Manage their inventory of supplies.
+
+## 👥 Contributing
+We welcome contributions! To contribute:
+1. Fork the repo and create a new branch.
+2. Make your changes.
+3. Submit a pull request with a detailed explanation of your modifications.
+
+Ensure your commit messages follow professional standards and your contributions align with project goals.
+
+
+## 📧 Contact
+For any inquiries, contact the team at:
+- **Email**: nairaalmelegy@gmail.com
+
+
+## 👤 Author
+- **Naira Almelegy**  
+  [GitHub Profile](https://github.com/Nairaalmelegy)
+
+Feel free to reach out with any questions or feedback.
+
+
