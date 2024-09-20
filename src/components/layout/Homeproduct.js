@@ -4,17 +4,17 @@ import SectionHeaders from "./sectionHeaders";
 import ProductItem from "../products/product-items";
 
 export default function HomeProduct() {
-  const [categories, setCategories] = useState([]);
+  const [products, setProducts] = useState([]);
 
   useEffect(() => {
-    // Fetch categories from the database
-    fetch('/api/categories')
+    // Fetch products from the database
+    fetch('/api/products') // Update to the correct endpoint
       .then((res) => res.json())
       .then((data) => {
-        setCategories(data); // Assuming the response is an array of category objects
+        setProducts(data); // Assuming the response is an array of product objects
       })
       .catch((err) => {
-        console.error("Error fetching categories: ", err);
+        console.error("Error fetching products: ", err);
       });
   }, []);
 
@@ -25,17 +25,18 @@ export default function HomeProduct() {
       </div>
 
       <div className="grid grid-cols-3 gap-4">
-        {categories.length > 0 ? (
-          categories.map((category) => (
+        {products.length > 0 ? (
+          products.map((product) => (
             <ProductItem
-              key={category._id}
-              name={category.name}
-              description={category.description}
-              image={category.image || "/medicine.png"} // Default image if not provided
+              key={product._id}
+              name={product.name}
+              description={product.description}
+              image={product.image || "/medicine.png"} // Default image if not provided
+              price={product.price} // Assuming price is a field in the product object
             />
           ))
         ) : (
-          <p>No categories found</p>
+          <p>No products found</p>
         )}
       </div>
     </section>

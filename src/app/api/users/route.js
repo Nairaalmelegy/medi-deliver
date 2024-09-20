@@ -1,6 +1,5 @@
 import mongoose from "mongoose";
 import { User } from "@/models/User";
-import { isAdmin } from "@/app/api/auth/[...nextauth]/route";
 
 // Helper function to connect to MongoDB
 async function connectToDatabase() {
@@ -9,27 +8,31 @@ async function connectToDatabase() {
   }
 }
 
-export async function GET() {
-  try {
-    console.log('Connecting to the database...');
-    await connectToDatabase();
-    console.log('Connected to the database.');
-
-    // Check if the user is an admin
-    const adminCheck = await isAdmin();
-    console.log('Is admin:', adminCheck);
-
-    if (adminCheck) {
-      console.log('Fetching users...');
-      const users = await User.find();
-      console.log('Users fetched:', users.length);
-      return new Response(JSON.stringify(users), { status: 200, headers: { 'Content-Type': 'application/json' } });
-    } else {
-      console.log('Not an admin');
-      return new Response(JSON.stringify([]), { status: 200, headers: { 'Content-Type': 'application/json' } });
+async function isAdmin() {
+    const session = await getServerSession(authOptions);
+    if (!session) {
+      return false; // No session, not an admin
     }
-  } catch (error) {
-    console.error('Error in GET /api/users:', error.message);
-    return new Response(JSON.stringify({ error: error.message }), { status: 500, headers: { 'Content-Type': 'application/json' } });
+  
+    // You can check the session user object for admin privileges
+    return session?.user?.role === 'admin'; // Adjust according to your schema
   }
-}
+  
+  export async function GET() {
+    try {
+      await connectToDatabase(); // Ensure this connects to the correct database
+      const users = await User.find(); // Fetch all users from the User collection
+      return new Response(JSON.stringify(users), {
+        status: 200,
+        headers: { 'Content-Type': 'application/json' },
+      });
+    } catch (error) {
+      console.error("Error fetching users:", error);
+      return new Response(JSON.stringify({ error: error.message }), {
+        status: 500,
+        headers: { 'Content-Type': 'application/json' },
+      });
+    }
+  }
+  
+  

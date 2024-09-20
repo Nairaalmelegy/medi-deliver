@@ -9,6 +9,8 @@ import UserTabs from "@/components/layout/Tabs";
 export default function ProfilePage() {
     const { data: session, status } = useSession();
     const [userName, setUserName] = useState('');
+    const [user,  setUser] = useState(null);
+
     const [saved, setSaved] = useState(false);
     const [isSaving, setIsSaving] = useState(false);
     const [phone,  setPhone] = useState('');

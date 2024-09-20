@@ -37,37 +37,19 @@ export const authOptions = {
     }),
   ],
   callbacks: {
-    async jwt({ token, user }) {
-      // Append user information to the token if the user exists
-      if (user) {
-        token.id = user._id;
-      }
-      return token;
-    },
-    async session({ session, token }) {
-      // Make the token available in session, if needed
-      if (token) {
-        session.user.id = token.id;
-      }
+    async session({ session, token, user }) {
+      session.user.role = token.role; // Pass the user role to the session
       return session;
     },
-  },
-  pages: {
-    signIn: "/src/app/profile",
-    error: "/src/app/login",
-  },
-};
-
-export async function isAdmin() {
-  try {
-    const session = await getSession();
-    console.log('Session data:', session);
-    return session?.user?.role === 'admin';
-  } catch (error) {
-    console.error('Error in isAdmin:', error.message);
-    return false;
+    async jwt({ token, user }) {
+      if (user) {
+        token.role = user.role;  // Store role in JWT token
+      }
+      return token;
+    }
   }
 };
+
 
 const handler = NextAuth(authOptions);
 
