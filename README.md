@@ -33,3 +33,17 @@ Make sure you have Node.js installed on your machine.
 1. Clone the repository:
    ```bash
    git clone https://github.com/Nairaalmelegy/medi-deliver.git
+   ```
+2. Navigate to the project directory:
+    ```bash
+    cd medi-deliver
+    ```
+3. Install the dependencies:
+    ```bash
+    npm installe
+    ```
+4. Start the development server:
+    ```bash
+    npm run dev
+    ```
+5. Open http://localhost:3000 in your browser to view the app.
