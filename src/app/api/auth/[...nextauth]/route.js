@@ -58,6 +58,17 @@ export const authOptions = {
   },
 };
 
+export async function isAdmin() {
+  try {
+    const session = await getSession();
+    console.log('Session data:', session);
+    return session?.user?.role === 'admin';
+  } catch (error) {
+    console.error('Error in isAdmin:', error.message);
+    return false;
+  }
+};
+
 const handler = NextAuth(authOptions);
 
 clientPromise
