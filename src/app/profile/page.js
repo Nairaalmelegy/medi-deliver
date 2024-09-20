@@ -84,7 +84,7 @@ export default function ProfilePage() {
     }
     
 
-    if (status === 'loading' || !profileFetched) {
+    if (status === 'loading') {
         return "Loading...";
     }
 

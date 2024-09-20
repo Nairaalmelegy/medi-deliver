@@ -3,7 +3,7 @@ export default function ProductItem(){
                 <div className="bg-blue-50 p-4 rounded-md text-center
                 hover:bg-blue-100 hover:shadow-2xl hover:shadow-gray transition-all">
                     <div className="text-center">
-                    <img src="/skin-care.png" 
+                    <img src="/medicine.png" 
                     className="max-h-auto max-h-24 block mx-auto"
                      alt="Skincare"/>
                     </div>

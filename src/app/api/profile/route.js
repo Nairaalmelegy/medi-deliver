@@ -2,6 +2,7 @@ import mongoose from "mongoose";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { User } from "@/models/User";
+import {UserInfo} from "@/models/UserInfo";
 
 // Helper function to connect to MongoDB
 async function connectToDatabase() {
@@ -60,7 +61,7 @@ export async function GET(req) {
     
     // Find and return the user's data
     const user = await User.findOne({ email });
-    
+    const userInfo = await UserInfo.findOne({email})
     if (!user) {
       return new Response(JSON.stringify({ error: "User not found" }), { status: 404 });
     }
