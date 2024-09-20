@@ -1,5 +1,6 @@
 # 🏥 Medi-Deliver
 
+![Medi-Deliver Logo]('/public/Home-Page.png')
 Medi-Deliver is a medical delivery web application designed to streamline the delivery of essential medical supplies and medications. With real-time tracking and a user-friendly interface, it ensures that medical deliveries are efficient and accurate.
 
 ## 📝 Project Description
