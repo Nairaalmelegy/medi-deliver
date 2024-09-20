@@ -1,3 +1,4 @@
+'use client';
 import Image from "next/image";
 import Right from "../icons/rightarrow";
 
@@ -17,11 +18,15 @@ export default function Hero(){
             </p>
             <div className="flex gap-4 text-sm">
                 <button 
+                 onClick={() => window.location.href = '/all-products'}
                 className="bg-primary justify-center items-center uppercase flex gap-2 text-white px-2 py-2 rounded-full">
                     Order now
                     <Right/>
                 </button>
-                <button className="flex items-center border-0 gap-2 py-2 text-gray-800 font-semibold">
+                <button 
+                 onClick={() => document.getElementById('about').scrollIntoView({ behavior: 'smooth' })}
+                className="flex items-center border-0 gap-2 py-2 text-gray-800 font-semibold">
+                    
                     Learn more
                     <Right/>
                 </button>
