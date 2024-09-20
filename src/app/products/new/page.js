@@ -4,8 +4,10 @@ import UserTabs from "@/components/layout/Tabs";
 import {useProfile} from "@/components/UseProfile";
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Left from "@/components/icons/leftarrow";
+import { Product } from "@/models/Product";
+
 
 
 export default function NewProduct(){
@@ -14,7 +16,15 @@ export default function NewProduct(){
     const [description,  setDescription] = useState('');
     const [price,   setPrice] = useState('');
     const [message, setMessage] = useState("");
-
+    const [categories,  setCategories] = useState([]);
+    const [category, setCategory] = useState(Product?.category || '');
+    useEffect(() =>{
+        fetch('/api/categories').then(res =>{
+            res.json().then(categories => {
+                setCategories(categories);
+            });
+        });
+    }, []);
     async function handleFormSubmit(ev){
         ev.preventDefault();
         const data = { name, description, price };
@@ -74,6 +84,12 @@ export default function NewProduct(){
                         value={description}
                         onChange={ev => setDescription(ev.target.value)}
                     />
+                    <label className="text-gray-600 font-semibold">Category</label>
+                    <select value={category} onChange={ev => setCategory(ev.target.value)} >
+                        {categories?.length > 0 && categories.map(c => (
+                            <option value={c._id}>{c.name}</option>
+                        ))}
+                    </select>
                     <label className="text-gray-600 font-semibold">Price</label>
                     <input 
                         type="text" 

@@ -23,7 +23,8 @@ section.hero {
 input[type="email"],
 input[type="password"],
 input[type="text"],
-input[type="tel"] {
+input[type="tel"],
+select {
   display: block;
   padding: 0.5rem;           
   border: 1px solid #D1D5DB;

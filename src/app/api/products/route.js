@@ -31,3 +31,11 @@ export async function GET(){
         await Product.find()
     );
 }
+
+export async function DELETE(req){
+    await connectToDatabase();
+  const url = new URL(req.url);
+  const _id = url.searchParams.get('_id');
+  await product.deleteOne({_id});
+  return Response.json(true);
+}

@@ -7,6 +7,7 @@ import Link from "next/link";
 import { useState, useEffect } from "react";
 import Left from "@/components/icons/leftarrow";
 import { useParams } from "next/navigation";
+import { Product } from "@/models/Product";
 
 export default function editProduct(){
     const {loading, data} = useProfile();
@@ -15,6 +16,16 @@ export default function editProduct(){
     const [price,   setPrice] = useState('');
     const [message, setMessage] = useState("");
     const {id} = useParams();
+    const [categories,  setCategories] = useState([]);
+    const [category, setCategory] = useState(Product?.category || '');
+
+    useEffect(() =>{
+        fetch('/api/categories').then(res =>{
+            res.json().then(categories => {
+                setCategories(categories);
+            });
+        });
+    }, []);
     useEffect(()=>{
         fetch('/api/products').then(res => {
             res.json().then(items => {
@@ -29,6 +40,13 @@ export default function editProduct(){
             });
         });
     }, [id]);
+
+    async function handleDeleteClick(){
+        const res = await fetch('/api/products?_id='+id, {
+            method: 'DELETE',
+
+        })
+    }
     async function handleFormSubmit(ev){
         ev.preventDefault();
         const data = { name, description, price, _id: id };
@@ -88,6 +106,12 @@ export default function editProduct(){
                         value={description}
                         onChange={ev => setDescription(ev.target.value)}
                     />
+                    <label className="text-gray-600 font-semibold">Category</label>
+                    <select value={category} onChange={ev => setCategory(ev.target.value)} >
+                        {categories?.length > 0 && categories.map(c => (
+                            <option value={c._id}>{c.name}</option>
+                        ))}
+                    </select>
                     <label className="text-gray-600 font-semibold">Price</label>
                     <input 
                         type="text" 
@@ -103,6 +127,15 @@ export default function editProduct(){
         {message && (
             <p className="mt-4 text-sm text-green-600">{message}</p>
         )}
+        <div className="max-w-md mx-auto mt-4">
+            <div className="max-w-xs ml-auto pl-4">
+            <button
+            onClick={handleDeleteClick}
+            className="text-gray-600"
+            >
+                Delete this Product</button>
+            </div>
+        </div>
     </section>
     );
 }

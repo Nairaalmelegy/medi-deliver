@@ -22,6 +22,13 @@ export default function CategoriesPage() {
         });
     }
 
+    async function handleDeleteClick(_id){
+        await fetch('/api/categories?._id='+_id, {
+            method: 'DELETE',
+        });
+
+        fetchCategories();
+    }
 
     async function handleCategorySubmit(ev) {
         ev.preventDefault();
@@ -72,9 +79,17 @@ export default function CategoriesPage() {
                             onChange={ev => setCategoryName(ev.target.value)} 
                         />
                     </div>
-                    <div className="pb-0.5">
+                    <div className="pb-0.5 flex gap-1">
                         <button type="submit" className="py-2 px-4">
                             {editedCategory? 'Update': 'Create'}
+                        </button>
+                        <button 
+                        onClick={()=> {
+                            setEditedCategory(null);
+                            setCategoryName('');
+                        }}
+                        className="text-gray-600">
+                            Cancel
                         </button>
                     </div>
                 </div>
@@ -82,7 +97,7 @@ export default function CategoriesPage() {
             <div>
                 <h2 className="mt-8 mb-2 text-gray-600 font-semibold">Edit Category</h2>
                 {categories?.length > 0 && categories.map(c => (
-                    <button 
+                    <div 
                         onClick={() =>{ 
                             setEditedCategory(c);
                             setCategoryName(c.name);
@@ -90,8 +105,21 @@ export default function CategoriesPage() {
                         }}
                         className="bg-gray-50 text-gray-600 rounded-xl p-2 px-4 flex gap-1 cursor-pointer mb-1"
                     >
-                        <span>{c.name}</span>
-                    </button>
+                        <span
+                         className="grow"
+                         >{c.name}</span>
+                         <div className="flex gap-1">
+                         <button className="text-gray-600" type="button"
+                         onClick={() => {
+                            setEditedCategory(c);
+                            setCategoryName(c.name);
+                         }}>Edit</button>
+                         <button className="text-gray-600"
+                         onClick={() => handleDeleteClick()}
+                          type="button">Delete</button>
+                        </div>
+                        
+                    </div>
                 ))}
             </div>
 

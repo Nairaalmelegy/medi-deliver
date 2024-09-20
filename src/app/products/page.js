@@ -48,7 +48,7 @@ export default function Products(){
                 {products?.length > 0 && products.map(item => (
                     <Link 
                     key={item._id}
-                    href={'/products/edit/${item._id'} 
+                    href={'/products/edit/${item._id}'} 
                     className="bg-blue-50 p-4 rounded-md text-center
                 hover:bg-blue-100 hover:shadow-2xl hover:shadow-gray transition-all">
                         <div className="relative">
