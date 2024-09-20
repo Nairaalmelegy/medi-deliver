@@ -9,7 +9,7 @@ export default function Home() {
     
     <Hero/>
     <HomeProduct/>
-    <section className="text-center my-16">
+    <section id ={'about'} className="text-center my-16">
       <SectionHeaders
         subHeader={'WHO ARE WE ?'}
         mainHeader={'ABOUT US'}/>
@@ -20,7 +20,7 @@ export default function Home() {
         way to order prescriptions, over-the-counter medications, and health products online. 
         With a focus on care and convenience, we strive to support your well-being every step of the way.</p>
     </section>
-    <section className="text-center my-8">
+    <section className="text-center my-8" id={'contact'}>
       <SectionHeaders 
         subHeader={'WANNA REACH OUT'}
         mainHeader={'CONTACT US'}/>
