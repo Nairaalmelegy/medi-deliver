@@ -76,7 +76,7 @@ export default function editProduct(){
     }
 
     return (
-        <section className="mt-8 max-w-md mx-auto">
+        <section className="mt-8 max-w-lg mx-auto">
         <UserTabs isAdmin={true}/>
         <div className="max-w-md mx-auto mt-8">
             <Link href={'/products'} className="justify-center bg-gray-50 text-gray-600 rounded-xl p-2 px-4 flex gap-2 cursor-pointer mb-1">
